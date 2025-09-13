@@ -6,3 +6,7 @@ type Todo struct {
 	Title string `json:"title" binding:"required"`
 	Done  bool   `json:"done"`
 }
+
+var todos = []Todo{
+	{ID: 1, Title: "First Todo", Done: false},
+}
