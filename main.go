@@ -1,18 +1,15 @@
 package main
 
 import (
-	"todo/endpoints/todo"
-
 	"github.com/gin-gonic/gin"
+	"todo/endpoints/todo"
 )
 
 func main() {
 	r := gin.Default()
 
-	// Routes
-	todoGroup := r.Group("/todo")
-	todo.RegisterTodoEndpoints(todoGroup)
+	// create /todo group
+	todo.Register(r.Group("/todo"))
 
-	// Run application
 	r.Run(":8080")
 }
