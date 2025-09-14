@@ -1,16 +1,17 @@
 package getlist
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"net/http"
+	"todo/endpoints/todo/store"
 )
 
-var todos = []map[string]interface{}{
-	{"id": 1, "title": "Learn Gin", "done": false},
-	{"id": 2, "title": "Build Todo App", "done": false},
-}
-
+// @Summary Get todos
+// @Description Get the list of all todos
+// @Tags todos
+// @Produce json
+// @Success 200 {array} model.Todo
+// @Router /todo/list [get]
 func Handler(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"todos": todos})
+	c.JSON(http.StatusOK, gin.H{"todos": store.Todos})
 }

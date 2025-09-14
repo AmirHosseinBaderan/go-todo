@@ -3,15 +3,20 @@ package delete
 import (
 	"net/http"
 	"strconv"
+	"todo/endpoints/todo/store"
 
 	"github.com/gin-gonic/gin"
 )
 
-var todos = []map[string]interface{}{
-	{"id": 1, "title": "Learn Gin", "done": false},
-	{"id": 2, "title": "Build Todo App", "done": false},
-}
-
+// @Summary Delete a todo
+// @Description Delete a todo by its ID
+// @Tags todos
+// @Param id path int true "Todo ID"
+// @Produce json
+// @Success 200 {object} map[string]string "Todo deleted"
+// @Failure 400 {object} map[string]string "Invalid ID"
+// @Failure 404 {object} map[string]string "Todo not found"
+// @Router /todo/delete/{id} [delete]
 func Handler(c *gin.Context) {
 	idParam := c.Param("id")
 	id, err := strconv.Atoi(idParam)
@@ -20,9 +25,9 @@ func Handler(c *gin.Context) {
 		return
 	}
 
-	for i, todo := range todos {
-		if todo["id"] == id {
-			todos = append(todos[:i], todos[i+1:]...)
+	for i, todo := range store.Todos {
+		if todo.ID == id {
+			store.Todos = append(store.Todos[:i], store.Todos[i+1:]...)
 			c.JSON(http.StatusOK, gin.H{"message": "Todo deleted"})
 			return
 		}
